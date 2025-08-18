@@ -1,5 +1,5 @@
-import builtins
 from tasks import log
+
 
 def test_log_output(capsys):
     @log
