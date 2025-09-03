@@ -13,5 +13,5 @@ def test_validate_positive_ok():
 
 
 def test_validate_positive_error():
-    with pytest.raises(ValueError, match="Все аргументы должны быть положительными"):
+    with pytest.raises(ValueError, match="Позиционный аргумент arg должен быть положительными"):
         multiply(-1, 4)
