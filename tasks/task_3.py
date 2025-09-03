@@ -1,15 +1,19 @@
-# ЗАДАНИЕ 3: Проверка аргументов на положительность
-# Напиши декоратор validate_positive, который:
-# - проверяет, что все переданные числовые аргументы больше 0,
-# - если хотя бы один из них ≤ 0 — выбрасывает ValueError с сообщением "Все аргументы должны быть положительными".
-# Пример:
-# >>> @validate_positive
-# >>> def multiply(a, b): return a * b
-# >>> multiply(-1, 3)
-# ValueError: Все аргументы должны быть положительными
-
 from functools import wraps
+
+POSITIVE_START = 0
 
 
 def validate_positive(func):
-    pass
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        for arg in args:
+            if isinstance(arg, (int)) and arg <= POSITIVE_START:
+                raise ValueError("Позиционный аргумент arg должен быть положительными")
+
+        for key, value in kwargs.items():
+            if isinstance(value, (int)) and value <= POSITIVE_START:
+                raise ValueError(
+                    "Именованный аргумент kwargs должен быть положительными.")
+
+        return func(*args, **kwargs)
+    return wrapper
